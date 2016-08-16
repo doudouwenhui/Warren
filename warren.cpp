@@ -5,44 +5,42 @@ using namespace std;
 
 int main()
 {
-	vector<long long> nSet;//input days
-	vector<long long> rSet;//output results
-	long long n, m, r, x;//
-
-	while (cin >> n)//input
+	vector<long long> days;
+	vector<long long> shares;
+	long long day, updown, share, ups;
+	
+	while (cin >> day)
 	{
-	  if (n > 0)
-		  nSet.push_back(n);
-		else 
-		  continue;
+		days.push_back(day);
 	}
-
-	if (nSet.size()>0)//
+	
+	if (days.size()>0)
 	{
-
-		for (int i = 0; i<nSet.size(); i++)
+	
+		for (int i = 0; i<days.size(); i++)
 		{
-
-			n = nSet[i];
-			m = ceil((1 + sqrtl((long double)(1 + 8 * n))) / 2) - 1;//第几组涨跌
-			x = ((long long)(((1 + sqrtl((long double)(1 + 8 * n))) / 2 - m) * m)) % m;//第m组涨跌的第几个涨，0表示跌
-
-			if (m == 1)
+	
+			day = days[i];
+			updown = ceil((1 + sqrtl((long double)(1 + 8 * day))) / 2) - 1;//第几组涨跌
+			ups = ((long long)(((1 + sqrtl((long double)(1 + 8 * day))) / 2 - updown) * updown)) % updown;//第m组涨跌的第几个涨，0表示跌
+	
+	
+			if (updown == 1)
 			{
-				r = 1;
+				share = 1;
 			}
-			if (x == 0)//恰好一个涨跌结束，当前为跌的那一天
-				r = (m - 1)*(m - 2) / 2 + 1;
-			else//第m个涨跌的第x涨的天数
-				r = (m - 2)*(m - 3) / 2 + 1 + x;
-
-			rSet.push_back(r);
-
+			if (ups == 0)//恰好一个涨跌结束，当前为跌的那一天
+				share = (updown - 1)*(updown - 2) / 2 + 1;
+			else//第updown个涨跌的第ups涨的天数
+				share = (updown - 2)*(updown - 3) / 2 + 1 + ups;
+	
+			shares.push_back(share);
+	
 		}
-		for (int i = 0; i<rSet.size(); i++)//输出
-			cout << rSet[i] << endl;
+		for (int i = 0; i<shares.size(); i++)
+			cout << shares[i] << endl;
 	}
-
+	
 	return 0;
 
 }
